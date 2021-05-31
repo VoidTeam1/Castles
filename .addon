@@ -1,0 +1,22 @@
+  
+{
+    "name": "castles",
+    "version": "1.0",
+    "sharedassets": "*.*",
+    
+    "depends": 
+    [
+      "base",
+      "citizen",
+      "rust"
+    ],
+
+    "gamemodes":
+    [
+      {
+        "name": "castles",
+        "title": "Castles",
+        "description": "Defend and upgrade your base, and attack other players!"
+      }
+    ]
+}
