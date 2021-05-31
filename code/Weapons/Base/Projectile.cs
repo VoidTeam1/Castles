@@ -37,7 +37,7 @@ namespace Castles.Weapons.Base
 
 		private float CalculateBulletDrop()
 		{
-			return Weapon.ProjectileDrop * TimeSinceShot + TotalPenetration * 0.1f;
+			return Weapon.ProjectileDrop * TimeSinceShot + TotalPenetration * 0.3f;
 		}
 
 		private float CalculateDamage()

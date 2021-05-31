@@ -6,6 +6,8 @@ namespace Castles.Weapons.Base
 	{
 		public virtual string PrintName => "Base Castles Weapon";
 		public virtual string AttackSound => "rust_pistol.shoot";
+		public virtual string WorldModel => "weapons/rust_pistol/rust_pistol.vmdl";
+		public virtual int? HoldType => null; 
 
 		[Net, Predicted]
 		public TimeSince TimeSinceDeployed { get; set; }
@@ -17,14 +19,19 @@ namespace Castles.Weapons.Base
 			TimeSinceDeployed = 0;
 		}
 		
+		public override void Spawn()
+		{
+			base.Spawn();
+
+			SetModel( WorldModel );
+		}
+		
 		public override void CreateViewModel()
 		{
 			Host.AssertClient();
 
 			if ( string.IsNullOrEmpty( ViewModelPath ) )
 				return;
-			
-			Log.Info( "Creating viewmodel" );
 
 			ViewModelEntity = new CastlesViewModel
 			{
@@ -34,6 +41,19 @@ namespace Castles.Weapons.Base
 			};
 			
 			ViewModelEntity.SetModel( ViewModelPath );
+		}
+		
+		public override void SimulateAnimator( PawnAnimator anim )
+		{
+			if ( HoldType != null )
+			{
+				anim.SetParam( "holdtype", HoldType.Value );
+				anim.SetParam( "aimat_weight", 1.0f );
+			}
+			else
+			{
+				base.SimulateAnimator( anim );
+			}
 		}
 	}
 }

@@ -1,7 +1,9 @@
 ﻿using Castles.Weapons.Base;
+using Sandbox;
 
 namespace Castles.Weapons
 {
+	[Library( "castles_pistol", Title = "Pistol" )]
 	public class Pistol : ProjectileWeapon
 	{
 		public override string PrintName => "Pistol";
@@ -19,6 +21,7 @@ namespace Castles.Weapons
 		public override string MuzzleFlashAttachment => "muzzle";
 
 		public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
+		public override string WorldModel => "weapons/rust_pistol/rust_pistol.vmdl";
 
 		public override string ProjectileModel => "weapons/shells/pistol_shell.vmdl";
 		public override float ProjectileVelocity => 600f;

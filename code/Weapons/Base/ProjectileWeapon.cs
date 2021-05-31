@@ -29,8 +29,6 @@ namespace Castles.Weapons.Base
 		
 		[Net, Predicted]
 		public TimeSince TimeSinceReload { get; set; }
-
-		[Net, Predicted]
 		public TimeSince TimeSinceSpreadReset { get; set; }
 		
 		

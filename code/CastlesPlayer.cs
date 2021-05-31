@@ -5,6 +5,8 @@ namespace Castles
 {
 	public partial class CastlesPlayer : Player
 	{
+		public DamageInfo LastDamage { get; set; }
+		
 		public CastlesPlayer()
 		{
 			Inventory = new PlayerInventory( this );
@@ -29,7 +31,8 @@ namespace Castles
 
 			base.Respawn();
 
-			Inventory.Add( new Pistol(), true );
+			Inventory.Add( new SMG(), true );
+			// Inventory.Add( new Pistol(), true );
 		}
 		
 		/// <summary>
@@ -48,6 +51,19 @@ namespace Castles
 			SimulateActiveChild( cl, ActiveChild );
 		}
 
+		public override void TakeDamage( DamageInfo info )
+		{
+			LastDamage = info;
+
+			// hack - hitbox 0 is head
+			if ( info.HitboxIndex == 0 )
+			{
+				info.Damage *= 2.0f;
+			}
+
+			base.TakeDamage( info );
+		}
+
 		/// <summary>
 		/// Called when the player is killed.
 		/// </summary>
@@ -56,6 +72,8 @@ namespace Castles
 			base.OnKilled();
 			
 			EnableDrawing = false;
+			
+			BecomeRagdollOnClient( LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
 		}
 	}
 }
