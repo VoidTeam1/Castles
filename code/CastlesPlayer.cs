@@ -1,9 +1,15 @@
-﻿using Sandbox;
+﻿using Castles.Weapons;
+using Sandbox;
 
 namespace Castles
 {
-	partial class CastlesPlayer : Player
+	public partial class CastlesPlayer : Player
 	{
+		public CastlesPlayer()
+		{
+			Inventory = new PlayerInventory( this );
+		}
+		
 		/// <summary>
 		/// Called when the player spawns.
 		/// </summary>
@@ -14,7 +20,7 @@ namespace Castles
 			// TODO: Probably use custom controllers later
 			Controller = new WalkController();
 			Animator = new StandardPlayerAnimator();
-			Camera = new ThirdPersonCamera();
+			Camera = new FirstPersonCamera();
 			
 			EnableAllCollisions = true;
 			EnableDrawing = true;
@@ -22,6 +28,8 @@ namespace Castles
 			EnableShadowInFirstPerson = true;
 
 			base.Respawn();
+
+			Inventory.Add( new Pistol(), true );
 		}
 		
 		/// <summary>
@@ -30,6 +38,11 @@ namespace Castles
 		public override void Simulate( Client cl )
 		{
 			base.Simulate( cl );
+			
+			if ( Input.ActiveChild != null )
+			{
+				ActiveChild = Input.ActiveChild;
+			}
 
 			// This simulates an active weapon
 			SimulateActiveChild( cl, ActiveChild );
