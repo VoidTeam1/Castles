@@ -16,6 +16,8 @@ namespace Castles.Weapons
 		public override float SpreadMoveMultiplier => 2f;
 		public override float ProjectileDrop => 5f;
 		public override float BaseDamage => 25f;
+		
+		public override string AttackSound => "rust_pistol.shoot";
 
 		public override string MuzzleFlashParticle => "particles/pistol_muzzleflash.vpcf";
 		public override string MuzzleFlashAttachment => "muzzle";
