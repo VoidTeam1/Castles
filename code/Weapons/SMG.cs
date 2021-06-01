@@ -12,12 +12,13 @@ namespace Castles.Weapons
 
 		public override int MagSize => 24;
 		public override float ReloadTime => 3.0f;
-		public override float Spread => 1.3f;
-		public override float SpreadResetTime => 1.5f;
-		public override float SpreadMoveMultiplier => 2.3f;
+		public override float Spread => 1f;
+		public override float SpreadResetTime => 0.6f;
+		public override float SpreadMoveMultiplier => 0.6f;
 		public override float ProjectileDrop => 5f;
 		public override float BaseDamage => 22f;
-		
+		public override float SpraySpreadMultiplier => 1.4f;
+
 		public override string AttackSound => "rust_smg.shoot";
 
 		public override string MuzzleFlashParticle => "particles/pistol_muzzleflash.vpcf";

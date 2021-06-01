@@ -1,4 +1,6 @@
-﻿using Castles.Weapons;
+﻿using Castles.UI;
+using Castles.Weapons;
+using Castles.Weapons.Base;
 using Sandbox;
 
 namespace Castles
@@ -6,7 +8,9 @@ namespace Castles
 	public partial class CastlesPlayer : Player
 	{
 		public DamageInfo LastDamage { get; set; }
-		
+
+		public bool Alive => Health > 0;
+
 		public CastlesPlayer()
 		{
 			Inventory = new PlayerInventory( this );
@@ -28,11 +32,14 @@ namespace Castles
 			EnableDrawing = true;
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
+			EnableAllCollisions = true;
 
 			base.Respawn();
 
 			Inventory.Add( new SMG(), true );
 			// Inventory.Add( new Pistol(), true );
+
+			GiveAmmo( AmmoType.SemiAuto, 120 );
 		}
 		
 		/// <summary>
@@ -41,6 +48,7 @@ namespace Castles
 		public override void Simulate( Client cl )
 		{
 			base.Simulate( cl );
+			if ( !Alive ) return;
 			
 			if ( Input.ActiveChild != null )
 			{
@@ -55,10 +63,10 @@ namespace Castles
 		{
 			LastDamage = info;
 
-			// hack - hitbox 0 is head
-			if ( info.HitboxIndex == 0 )
+			// hack - hitbox 5 is head
+			if ( info.HitboxIndex == 5 )
 			{
-				info.Damage *= 2.0f;
+				info.Damage *= 2.5f;
 			}
 
 			base.TakeDamage( info );
@@ -72,8 +80,12 @@ namespace Castles
 			base.OnKilled();
 			
 			EnableDrawing = false;
-			
+			EnableAllCollisions = false;
+
 			BecomeRagdollOnClient( LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
+			Camera = new SpectateRagdollCamera();
+
+			ClearAmmo();
 		}
 	}
 }

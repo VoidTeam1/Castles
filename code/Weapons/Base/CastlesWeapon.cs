@@ -1,4 +1,6 @@
-﻿using Sandbox;
+﻿using Castles.UI;
+using Sandbox;
+using Sandbox.UI;
 
 namespace Castles.Weapons.Base
 {
@@ -15,7 +17,8 @@ namespace Castles.Weapons.Base
 		public override void ActiveStart( Entity ent )
 		{
 			base.ActiveStart( ent );
-
+			
+			Owner.LastAttackerWeapon = this;
 			TimeSinceDeployed = 0;
 		}
 		
@@ -24,6 +27,12 @@ namespace Castles.Weapons.Base
 			base.Spawn();
 
 			SetModel( WorldModel );
+		}
+
+		public override void CreateHudElements()
+		{
+			CrosshairPanel = new GunCrosshair();
+			CrosshairCanvas.SetCrosshair( CrosshairPanel );
 		}
 		
 		public override void CreateViewModel()

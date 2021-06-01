@@ -1,5 +1,9 @@
 
+using Castles.UI;
+using Castles.Weapons.Base;
 using Sandbox;
+using Sandbox.UI;
+using Steamworks;
 
 namespace Castles
 {
@@ -20,7 +24,7 @@ namespace Castles
 		{
 			if ( IsServer )
 			{
-				// TODO: Create a HUD entity here
+				_ = new CastlesHUD();
 			}
 
 			if ( IsClient )
@@ -40,6 +44,35 @@ namespace Castles
 			client.Pawn = player;
 
 			player.Respawn();
+		}
+		
+		/// <summary>
+		/// An entity, which is a pawn, and has a client, has been killed.
+		/// </summary>
+		public override void OnKilled( Client client, Entity pawn )
+		{
+			Host.AssertServer();
+
+			Log.Info( $"{client.Name} was killed" );
+
+			if ( pawn.LastAttacker != null )
+			{
+				var attackerClient = pawn.LastAttacker.GetClientOwner();
+
+				if ( attackerClient != null )
+				{
+					var lastWeapon = attackerClient.Pawn.LastAttackerWeapon as CastlesWeapon;
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, lastWeapon?.PrintName ?? "Projectile" );
+				}
+				else
+				{
+					OnKilledMessage( (ulong)pawn.LastAttacker.NetworkIdent, pawn.LastAttacker.ToString(), client.SteamId, client.Name, "killed" );
+				}
+			}
+			else
+			{
+				OnKilledMessage( 0, client.Name, client.SteamId, "", "died" );
+			}
 		}
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace Castles.Weapons.Base
 {
+	[Library( "projectile" )]
 	public partial class Projectile : ModelEntity
 	{
 		public ProjectileWeapon Weapon { get; set; }
@@ -11,6 +12,7 @@ namespace Castles.Weapons.Base
 		public float TotalPenetration { get; set; }
 		
 		public string ProjectileModel { get; set; } = "weapons/shells/pistol_shell.vmdl";
+		public float ProjectileLifetime => 6f;
 		public TimeSince TimeSinceShot { get; set; }
 
 
@@ -29,7 +31,7 @@ namespace Castles.Weapons.Base
 			
 			TimeSinceShot = 0;
 		}
-		
+
 		private float CalculateBulletSpeed()
 		{
 			return ProjectileVelocity * 10 - TotalPenetration * 3;
@@ -76,7 +78,13 @@ namespace Castles.Weapons.Base
 		public virtual void Tick()
 		{
 			if ( !IsAuthority ) return;
-			
+
+			if ( IsServer && TimeSinceShot > ProjectileLifetime )
+			{
+				Delete();
+				return;
+			}
+
 			var velocity = Rotation.Forward * CalculateBulletSpeed();
 			
 			var start = Position;

@@ -1,4 +1,6 @@
-﻿using Sandbox;
+﻿using System;
+using Castles.UI;
+using Sandbox;
 
 namespace Castles.Weapons.Base
 {
@@ -14,6 +16,10 @@ namespace Castles.Weapons.Base
 		public virtual float SpreadMoveMultiplier => 2f;
 		public virtual float ProjectileDrop => 5f;
 		public virtual float BaseDamage => 25f;
+		public virtual float MaxSpread => 10f;
+		public virtual float SpraySpreadMultiplier => 1f;
+
+		public virtual float SpraySpreadIncreaseTime => 0.6f;
 
 		public virtual string MuzzleFlashParticle => "particles/pistol_muzzleflash.vpcf";
 		public virtual string MuzzleFlashAttachment => "muzzle";
@@ -29,11 +35,18 @@ namespace Castles.Weapons.Base
 		
 		[Net, Predicted]
 		public TimeSince TimeSinceReload { get; set; }
+		
+		[Net, Predicted]
 		public TimeSince TimeSinceSpreadReset { get; set; }
-		
-		
+		public TimeSince TimeSinceSprayStart { get; set; }
+
 		public override void Simulate( Client owner ) 
 		{
+			if ( TimeSinceSpreadReset > SpreadResetTime )
+			{
+				TimeSinceSprayStart = 0;
+			}
+
 			if ( TimeSinceDeployed < 0.6f )
 				return;
 
@@ -44,12 +57,48 @@ namespace Castles.Weapons.Base
 
 			if ( IsReloading && TimeSinceReload > ReloadTime )
 			{
-				//OnReloadFinish();
+				OnReloadFinish();
 			}
+		}
+
+		public override void Reload()
+		{
+			if ( IsReloading ) return;
+			if ( AmmoClip >= MagSize ) return;
+
+			if ( ((CastlesPlayer) Owner).CurrentWeaponAmmo < 1 ) return;
+
+			TimeSinceReload = 0;
+			IsReloading = true;
+
+			StartReloadEffects();
+		}
+		
+		public virtual void OnReloadFinish()
+		{
+			IsReloading = false;
+
+			if ( Owner is CastlesPlayer player )
+			{
+				var ammo = player.TakeAmmo( AmmoType, MagSize - AmmoClip );
+				if ( ammo == 0 )
+					return;
+
+				AmmoClip += ammo;
+			}
+		}
+		
+		[ClientRpc]
+		public virtual void StartReloadEffects()
+		{
+			ViewModelEntity?.SetAnimBool( "reload", true );
+			(Owner as AnimEntity)?.SetAnimBool( "b_reload", true );
 		}
 		
 		public override void AttackPrimary()
 		{
+			if ( !TakeAmmo() ) return;
+			
 			TimeSincePrimaryAttack = 0;
 			TimeSinceSecondaryAttack = 0;
 			
@@ -82,18 +131,16 @@ namespace Castles.Weapons.Base
 		{
 			if (IsServer)
 			{
-				bool shouldApplySpread = ShouldApplySpread();
-
 				var projectile = new Projectile
 				{
 					ProjectileModel = ProjectileModel, 
 					ProjectileVelocity = ProjectileVelocity
 				};
 
-				projectile.Shoot( Owner as CastlesPlayer, this, shouldApplySpread ? CalculateSpread() : 0f );
-
-				TimeSinceSpreadReset = 0;
+				projectile.Shoot( Owner as CastlesPlayer, this, CalculateSpread() );
 			}
+			
+			TimeSinceSpreadReset = 0;
 		}
 		
 		/// <summary>
@@ -101,7 +148,7 @@ namespace Castles.Weapons.Base
 		/// </summary>
 		public virtual bool ShouldApplySpread()
 		{
-			return TimeSinceSpreadReset < SpreadResetTime || CalculateSpread() > Spread;
+			return TimeSinceSpreadReset < SpreadResetTime;
 		}
 
 		/// <summary>
@@ -112,18 +159,39 @@ namespace Castles.Weapons.Base
 			float spread = Spread;
 			var walkController = ((Owner as CastlesPlayer)?.Controller as WalkController);
 			bool isDucking = walkController != null && walkController.Duck.IsActive;
+			
+			if ( !ShouldApplySpread() )
+			{
+				spread = 0.2f;
+			}
 
 			if ( Owner.Velocity.Length > 0 && !isDucking )
 			{
-				spread *= SpreadMoveMultiplier;
+				spread += (SpreadMoveMultiplier / 100) * Owner.Velocity.Length;
 			}
 
 			if ( Owner.Velocity.Length < 1 && isDucking )
 			{
 				spread *= 0.8f;
 			}
-			
+
+			if ( TimeSinceSprayStart > 0.1f )
+			{
+				spread *= Math.Max( (TimeSinceSprayStart + 1) * SpraySpreadMultiplier - 0.5f, 1 );
+			}
+
+			spread = spread.Clamp( 0, MaxSpread );
+
 			return spread;
+		}
+
+		public bool TakeAmmo( int amount = 1 )
+		{
+			if ( AmmoClip < amount )
+				return false;
+
+			AmmoClip -= amount;
+			return true;
 		}
 	}
 }
