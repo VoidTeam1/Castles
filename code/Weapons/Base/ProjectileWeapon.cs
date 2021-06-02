@@ -24,7 +24,13 @@ namespace Castles.Weapons.Base
 
 		public virtual string ProjectileModel => "weapons/shells/pistol_shell.vmdl";
 		public virtual float ProjectileVelocity => 600f;
-		
+		public virtual int FireNumBullets => 1;
+
+		/// <summary>
+		/// Used for reloading shotguns/revolvers, one round at a time
+		/// </summary>
+		public virtual bool GradualReloading => false;
+
 		[Net, Predicted]
 		public int AmmoClip { get; set; }
 		
@@ -76,14 +82,41 @@ namespace Castles.Weapons.Base
 		{
 			IsReloading = false;
 
+			if ( GradualReloading )
+			{
+				TimeSincePrimaryAttack = 0;
+				TimeSinceSecondaryAttack = 0;
+				
+				if ( AmmoClip >= MagSize )
+					return;
+			}
+
 			if ( Owner is CastlesPlayer player )
 			{
-				var ammo = player.TakeAmmo( AmmoType, MagSize - AmmoClip );
+				var ammo = player.TakeAmmo( AmmoType, GradualReloading ? 1 : MagSize - AmmoClip );
 				if ( ammo == 0 )
 					return;
 
 				AmmoClip += ammo;
+
+				if ( GradualReloading )
+				{
+					if ( AmmoClip < MagSize )
+					{
+						Reload();
+					}
+					else
+					{
+						FinishReload();
+					}
+				}
 			}
+		}
+		
+		[ClientRpc]
+		protected virtual void FinishReload()
+		{
+			ViewModelEntity?.SetAnimBool( "reload_finished", true );
 		}
 		
 		[ClientRpc]
@@ -103,7 +136,11 @@ namespace Castles.Weapons.Base
 			ShootEffects();
 
 			PlaySound( AttackSound );
-			ShootBullet();
+
+			for ( int i = 0; i < FireNumBullets; i++ )
+			{
+				ShootBullet();
+			}
 		}
 		
 		[ClientRpc]
