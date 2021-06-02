@@ -12,9 +12,10 @@ namespace Castles.UI
 		
 		public AmmoCounter()
 		{
-			AmmoText = Add.Label( "AMMO" );
+			AmmoText = Add.Label( "AMMO", "text-green-500" );
 			
 			StyleSheet.Load( "/ui/AmmoCounter.scss" );
+			StyleSheet.Load( "/ui/Tailwind.scss" );
 
 			Instance = this;
 		}
@@ -32,7 +33,7 @@ namespace Castles.UI
 			int totalAmmo = player.CurrentWeaponAmmo;
 			int clipSize = currentWeapon.AmmoClip;
 
-			// AmmoText.Text = $"{clipSize}/{totalAmmo}";
+			AmmoText.Text = $"{clipSize}/{totalAmmo}";
 		}
 	}
 }

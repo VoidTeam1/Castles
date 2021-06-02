@@ -19,8 +19,6 @@ namespace Castles.Weapons.Base
 		public virtual float MaxSpread => 10f;
 		public virtual float SpraySpreadMultiplier => 1f;
 
-		public virtual float SpraySpreadIncreaseTime => 0.6f;
-
 		public virtual string MuzzleFlashParticle => "particles/pistol_muzzleflash.vpcf";
 		public virtual string MuzzleFlashAttachment => "muzzle";
 

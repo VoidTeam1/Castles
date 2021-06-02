@@ -36,9 +36,10 @@ namespace Castles
 
 			base.Respawn();
 
-			Inventory.Add( new SMG(), true );
+			Inventory.Add( new Pistol(), true );
 			// Inventory.Add( new Pistol(), true );
 
+			GiveAmmo( AmmoType.Pistol, 120 );
 			GiveAmmo( AmmoType.SemiAuto, 120 );
 		}
 		
