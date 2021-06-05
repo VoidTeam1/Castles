@@ -15,7 +15,6 @@ namespace Castles.UI
 			AmmoText = Add.Label( "AMMO", "text-green-500" );
 			
 			StyleSheet.Load( "/ui/AmmoCounter.scss" );
-			StyleSheet.Load( "/ui/Tailwind.scss" );
 
 			Instance = this;
 		}
