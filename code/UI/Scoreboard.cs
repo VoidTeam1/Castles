@@ -11,6 +11,12 @@ namespace Castles.UI
 			StyleSheet.Load( "/ui/Scoreboard.scss" );
 
 			Add.Label( "CASTLES SCOREBOARD", "title" );
+			
+			var team = Add.Panel("team");
+			team.Add.Label( "TEAM RED", "team-header--red" );
+			
+			var teamContent = team.Add.Panel( "team-content" );
+			teamContent.Add.Label( "PLAYERNAME", "team-entry--red" );
 		}
 
 		public override void Tick()
