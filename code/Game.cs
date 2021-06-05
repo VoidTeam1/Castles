@@ -18,13 +18,13 @@ namespace Castles
 	/// as your game addon. If it isn't then we won't be able to find it.
 	/// </summary>
 	[Library( "castles" )]
-	public partial class CastlesGame : Sandbox.Game
+	public partial class Game : Sandbox.Game
 	{
-		public CastlesGame()
+		public Game()
 		{
 			if ( IsServer )
 			{
-				_ = new CastlesHUD();
+				_ = new HUD();
 			}
 
 			if ( IsClient )
@@ -61,7 +61,7 @@ namespace Castles
 
 				if ( attackerClient != null )
 				{
-					var lastWeapon = attackerClient.Pawn.LastAttackerWeapon as CastlesWeapon;
+					var lastWeapon = attackerClient.Pawn.LastAttackerWeapon as Weapon;
 					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, lastWeapon?.PrintName ?? "Projectile" );
 				}
 				else

@@ -4,9 +4,9 @@ using Sandbox.UI;
 namespace Castles.UI
 {
 	[Library]
-	public class CastlesHUD : HudEntity<RootPanel>
+	public class HUD : HudEntity<RootPanel>
 	{
-		public CastlesHUD()
+		public HUD()
 		{
 			if ( !IsClient )
 				return;

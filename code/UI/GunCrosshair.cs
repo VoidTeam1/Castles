@@ -20,7 +20,7 @@ namespace Castles.UI
 			var player = Local.Pawn as GamePlayer;
 			if ( player == null ) return;
 			
-			var weapon = player.LastAttackerWeapon as CastlesWeapon;
+			var weapon = player.LastAttackerWeapon as Weapon;
 
 			if ( weapon is ProjectileWeapon projectileWeapon )
 			{

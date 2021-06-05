@@ -2,7 +2,7 @@
 
 namespace Castles.Weapons.Base
 {
-	public partial class CastlesViewModel : BaseViewModel
+	public partial class ViewModel : BaseViewModel
 	{
 		public override void PostCameraSetup( ref CameraSetup camSetup )
 		{

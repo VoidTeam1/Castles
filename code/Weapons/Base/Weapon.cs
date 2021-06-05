@@ -4,7 +4,7 @@ using Sandbox.UI;
 
 namespace Castles.Weapons.Base
 {
-	public partial class CastlesWeapon : BaseWeapon
+	public partial class Weapon : BaseWeapon
 	{
 		public virtual string PrintName => "Base Castles Weapon";
 		public virtual string AttackSound => "rust_pistol.shoot";
@@ -42,7 +42,7 @@ namespace Castles.Weapons.Base
 			if ( string.IsNullOrEmpty( ViewModelPath ) )
 				return;
 
-			ViewModelEntity = new CastlesViewModel
+			ViewModelEntity = new ViewModel
 			{
 				Position = Position,
 				Owner = Owner,

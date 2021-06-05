@@ -4,7 +4,7 @@ using Sandbox;
 
 namespace Castles.Weapons.Base
 {
-	public partial class ProjectileWeapon : CastlesWeapon
+	public partial class ProjectileWeapon : Weapon
 	{
 		public override string PrintName => "Base Projectile Weapon";
 		public virtual AmmoType AmmoType => AmmoType.Pistol;
