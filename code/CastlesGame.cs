@@ -18,9 +18,9 @@ namespace Castles
 	/// as your game addon. If it isn't then we won't be able to find it.
 	/// </summary>
 	[Library( "castles" )]
-	public partial class MinimalGame : Sandbox.Game
+	public partial class CastlesGame : Sandbox.Game
 	{
-		public MinimalGame()
+		public CastlesGame()
 		{
 			if ( IsServer )
 			{
