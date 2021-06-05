@@ -5,13 +5,13 @@ using Sandbox;
 
 namespace Castles
 {
-	public partial class CastlesPlayer : Player
+	public partial class GamePlayer : Player
 	{
 		public DamageInfo LastDamage { get; set; }
 
 		public bool Alive => Health > 0;
 
-		public CastlesPlayer()
+		public GamePlayer()
 		{
 			Inventory = new PlayerInventory( this );
 		}

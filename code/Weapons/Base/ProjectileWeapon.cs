@@ -70,7 +70,7 @@ namespace Castles.Weapons.Base
 			if ( IsReloading ) return;
 			if ( AmmoClip >= MagSize ) return;
 
-			if ( ((CastlesPlayer) Owner).CurrentWeaponAmmo < 1 ) return;
+			if ( ((GamePlayer) Owner).CurrentWeaponAmmo < 1 ) return;
 
 			TimeSinceReload = 0;
 			IsReloading = true;
@@ -91,7 +91,7 @@ namespace Castles.Weapons.Base
 					return;
 			}
 
-			if ( Owner is CastlesPlayer player )
+			if ( Owner is GamePlayer player )
 			{
 				var ammo = player.TakeAmmo( AmmoType, GradualReloading ? 1 : MagSize - AmmoClip );
 				if ( ammo == 0 )
@@ -172,7 +172,7 @@ namespace Castles.Weapons.Base
 					ProjectileVelocity = ProjectileVelocity
 				};
 
-				projectile.Shoot( Owner as CastlesPlayer, this, CalculateSpread() );
+				projectile.Shoot( Owner as GamePlayer, this, CalculateSpread() );
 			}
 			
 			TimeSinceSpreadReset = 0;
@@ -192,7 +192,7 @@ namespace Castles.Weapons.Base
 		public virtual float CalculateSpread()
 		{
 			float spread = Spread;
-			var walkController = ((Owner as CastlesPlayer)?.Controller as WalkController);
+			var walkController = ((Owner as GamePlayer)?.Controller as WalkController);
 			bool isDucking = walkController != null && walkController.Duck.IsActive;
 			
 			if ( !ShouldApplySpread() )

@@ -16,7 +16,7 @@ namespace Castles.Weapons.Base
 		public TimeSince TimeSinceShot { get; set; }
 
 
-		public void Shoot( CastlesPlayer owner, ProjectileWeapon weapon, float spread = 0f )
+		public void Shoot( GamePlayer owner, ProjectileWeapon weapon, float spread = 0f )
 		{
 			Owner = owner;
 			Weapon = weapon;

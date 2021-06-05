@@ -40,7 +40,7 @@ namespace Castles
 		{
 			base.ClientJoined( client );
 
-			var player = new CastlesPlayer();
+			var player = new GamePlayer();
 			client.Pawn = player;
 
 			player.Respawn();

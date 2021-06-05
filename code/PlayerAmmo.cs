@@ -5,7 +5,7 @@ using Sandbox;
 
 namespace Castles
 {
-	public partial class CastlesPlayer
+	public partial class GamePlayer
 	{
 		[Net]
 		private List<int> AmmoList { get; set; } = new();

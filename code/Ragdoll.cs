@@ -2,7 +2,7 @@
 
 namespace Castles
 {
-	public partial class CastlesPlayer
+	public partial class GamePlayer
 	{
 		static readonly EntityLimit RagdollLimit = new EntityLimit { MaxTotal = 20 };
 

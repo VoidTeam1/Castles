@@ -24,7 +24,7 @@ namespace Castles.UI
 		{
 			base.Tick();
 			
-			var player = Local.Pawn as CastlesPlayer;
+			var player = Local.Pawn as GamePlayer;
 			if ( player == null ) return;
 
 			var currentWeapon = player.ActiveChild as ProjectileWeapon;
