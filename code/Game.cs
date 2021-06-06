@@ -40,10 +40,12 @@ namespace Castles
 		{
 			base.ClientJoined( client );
 
-			var player = new GamePlayer();
+			var player = new SpectatorPlayer();
 			client.Pawn = player;
 
 			player.Respawn();
+
+			Team.All[0].Join( client );
 		}
 		
 		/// <summary>

@@ -4,9 +4,9 @@ using Sandbox;
 
 namespace Castles
 {
+	[Library("team")]
 	public partial class Team : NetworkComponent
 	{
-		[Net]
 		public static List<Team> All { get; set; } = new List<Team>
 		{
 			new Team("Red", Color.Red),
@@ -15,10 +15,8 @@ namespace Castles
 			new Team("Yellow", Color.Yellow)
 		};
 		
-		[Net]
 		public string Name { get; set; }
 		
-		[Net]
 		public Color Color { get; set; }
 		
 
