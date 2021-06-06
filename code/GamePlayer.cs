@@ -2,11 +2,14 @@
 using Castles.Weapons;
 using Castles.Weapons.Base;
 using Sandbox;
+using Steamworks;
 
 namespace Castles
 {
 	public partial class GamePlayer : Player
 	{
+		public Team Team { get; }
+		
 		public DamageInfo LastDamage { get; set; }
 
 		public bool Alive => Health > 0;
@@ -15,6 +18,12 @@ namespace Castles
 		{
 			Inventory = new PlayerInventory( this );
 		}
+
+		public GamePlayer(Team team)
+		{
+			Inventory = new PlayerInventory( this );
+			Team = team;
+		}
 		
 		/// <summary>
 		/// Called when the player spawns.
@@ -22,7 +31,7 @@ namespace Castles
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
-			
+
 			// TODO: Probably use custom controllers later
 			Controller = new WalkController();
 			Animator = new StandardPlayerAnimator();
