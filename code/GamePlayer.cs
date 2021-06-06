@@ -11,7 +11,7 @@ namespace Castles
 	{
 		[Net]
 		public Team Team { get; set; }
-		
+
 		public DamageInfo LastDamage { get; set; }
 
 		public bool Alive => Health > 0;
@@ -53,6 +53,7 @@ namespace Castles
 			GiveAmmo( AmmoType.Pistol, 120 );
 			GiveAmmo( AmmoType.SemiAuto, 120 );
 			GiveAmmo( AmmoType.Buckshot, 120 );
+
 		}
 		
 		/// <summary>
@@ -67,7 +68,6 @@ namespace Castles
 			{
 				ActiveChild = Input.ActiveChild;
 			}
-			
 
 			// This simulates an active weapon
 			SimulateActiveChild( cl, ActiveChild );
