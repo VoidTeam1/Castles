@@ -42,13 +42,17 @@ namespace Castles
 
 			var player = new SpectatorPlayer();
 			client.Pawn = player;
-
 			player.Respawn();
 
-			// TODO: Proper team selection later
-			var team = Rand.FromArray( Team.All.ToArray() );
-			team.Join( client );
+			foreach ( var playerEnt in All )
+			{
+				if ( playerEnt is GamePlayer gamePlayer )
+				{
+					gamePlayer.ReceiveTeamData( To.Single( client ), gamePlayer.Team.Name );
+				}
+			}
 		}
+		
 
 		/// <summary>
 		/// A client has disconnected from the server.

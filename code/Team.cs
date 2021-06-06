@@ -36,7 +36,7 @@ namespace Castles
 					.ToList();
 			}
 		}
-
+		
 		public void Join( Client client )
 		{
 			if ( client.Pawn is SpectatorPlayer )
@@ -58,6 +58,19 @@ namespace Castles
 		public void Leave( Client client )
 		{
 			PlayerScoreboard.PlayerLeftTeamRpc(client, Name);
+		}
+
+		[ServerCmd("join_team")]
+		public static void JoinTeam(string teamName)
+		{
+			var team = All.FirstOrDefault( x => x.Name == teamName );
+			if ( team == null ) return;
+			if ( ConsoleSystem.Caller == null ) return;
+
+			var caller = ConsoleSystem.Caller;
+			if ( caller.Pawn is not SpectatorPlayer ) return;
+
+			team.Join( caller );
 		}
 
 		public override string ToString() => Name;

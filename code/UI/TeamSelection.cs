@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
@@ -7,7 +8,7 @@ namespace Castles.UI
 {
 	public class TeamSelection : Panel
 	{
-		private List<Label> Teams = new();
+		private Dictionary<string, Label> Teams = new();
 		
 		public TeamSelection()
 		{
@@ -20,18 +21,26 @@ namespace Castles.UI
 			
 			foreach ( var team in Team.All )
 			{
-				var teamLabel = new Label { Text = team.Members.Count.ToString() };
-				Teams.Add( teamLabel );
-				AddTeamPanel( team.Name, teamLabel, teamsPanel);
+				Teams[team.Name] = AddTeamPanel( team.Name, team.Members.Count, teamsPanel);
 			}
 
 			var specPanel = contentPanel.Add.Panel( "spectator" );
-			specPanel.Add.Label( "JOIN AS SPECTATOR", "spectator-text" );
+			specPanel.Add.Button( "JOIN AS SPECTATOR", "spectator-text", CloseMenu);
+
+			PlayerScoreboard.PlayerJoinedTeam += ( _, _ ) =>
+			{
+				Update();
+			};
+			
+			PlayerScoreboard.PlayerLeftTeam += ( _, _ ) =>
+			{
+				Update();
+			};
 			
 			StyleSheet.Load( "UI/TeamSelection.scss" );
 		}
 
-		private void AddTeamPanel( string name, Label count, Panel parent )
+		private Label AddTeamPanel( string name, int count, Panel parent )
 		{
 			var team = parent.Add.Button( "", "team", () => SelectTeam( name ));
 			var title = team.Add.Panel( "team-title" );
@@ -40,21 +49,26 @@ namespace Castles.UI
 
 			var box = team.Add.Panel( "team-box" );
 			box.AddClass( $"team-box--{name}" );
-			box.Add.Label( $"{count.Text} / 4", "team-box-count" );
+			return box.Add.Label( $"{count} / 4", "team-box-count" );
 		}
 
 		private void SelectTeam(string teamName)
 		{
-			// TODO: Add player to real team
-			Log.Info( $"SELECTED TEAM: {teamName}" );
+			ConsoleSystem.Run( $"join_team {teamName}" );
+			CloseMenu();
 		}
 
-		// TODO: Update when a player joins/leaves a team
+		private void CloseMenu()
+		{
+			Style.Display = DisplayMode.None;
+		}
+		
 		private void Update()
 		{
-			foreach ( var label in Teams )
+			foreach ( var teamPair in Teams )
 			{
-				
+				var team = Team.All.FirstOrDefault( x => x.Name == teamPair.Key );
+				teamPair.Value.Text = $"{team.Members.Count} / 4";
 			}
 		}
 	}
