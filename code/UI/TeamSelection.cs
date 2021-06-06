@@ -26,6 +26,8 @@ namespace Castles.UI
 
 			var specPanel = contentPanel.Add.Panel( "spectator" );
 			specPanel.Add.Label( "JOIN AS SPECTATOR", "spectator-text" );
+			
+			StyleSheet.Load( "UI/TeamSelection.scss" );
 		}
 
 		private void AddTeamPanel( string name, Label count, Panel parent )
