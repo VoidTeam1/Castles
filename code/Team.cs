@@ -5,7 +5,7 @@ using Sandbox;
 namespace Castles
 {
 	[Library("team")]
-	public partial class Team : NetworkComponent
+	public partial class Team
 	{
 		public static List<Team> All { get; set; } = new List<Team>
 		{
@@ -45,6 +45,7 @@ namespace Castles
 			client.Pawn = player;
 
 			player.Respawn();
+			player.ReceiveTeamData( Name );
 		}
 
 		public override string ToString() => Name;

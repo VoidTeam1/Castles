@@ -44,8 +44,9 @@ namespace Castles
 			client.Pawn = player;
 
 			player.Respawn();
-
-			Team.All[0].Join( client );
+			
+			// TODO: Proper team selection later
+			Rand.FromArray(Team.All.ToArray()).Join( client );
 		}
 		
 		/// <summary>

@@ -1,4 +1,5 @@
-﻿using Castles.UI;
+﻿using System.Linq;
+using Castles.UI;
 using Castles.Weapons;
 using Castles.Weapons.Base;
 using Sandbox;
@@ -9,7 +10,7 @@ namespace Castles
 	public partial class GamePlayer : Player
 	{
 		[Net]
-		public Team Team { get; }
+		public Team Team { get; set; }
 		
 		public DamageInfo LastDamage { get; set; }
 
@@ -99,5 +100,16 @@ namespace Castles
 
 			ClearAmmo();
 		}
+
+		/// <summary>
+		/// Gets the player's team from server.
+		/// </summary>
+		[ClientRpc]
+		public void ReceiveTeamData( string name )
+		{
+			Host.AssertClient();
+			Team = Team.All.FirstOrDefault( x => x.Name == name );
+		}
+		
 	}
 }
