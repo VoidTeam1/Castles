@@ -1,0 +1,56 @@
+TeamSelection {
+  font-family: "Segoe UI", sans-serif;
+  
+  .background {
+    background-color: rgba(black, 0.70);
+  }
+  
+  .content {
+    flex-direction: column;
+    
+    .title {
+      font-size: 72px;
+      color: white;
+    }
+    
+    .teams {
+      flex-direction: row;
+      
+      .team {
+        flex-direction: column;
+        
+        .team-title {
+          flex-direction: row;
+        }
+        
+        .team-box {
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          
+          .team-box-count {
+            font-size: 72px;
+            color: white;
+            font-weight: 700;
+          }
+        }
+        
+        .team-box--red {
+          background-color: rgba(#B31F1F, 0.80);
+          
+          &:hover {
+            background-color: #B31F1F;
+          }
+        }
+
+        .team-box--blue {
+          background-color: rgba(#1B72B3, 0.80);
+
+          &:hover {
+            background-color: #1B72B3;
+          }
+        }
+      }
+    }
+  }
+}
