@@ -8,6 +8,7 @@ namespace Castles
 {
 	public partial class GamePlayer : Player
 	{
+		[Net]
 		public Team Team { get; }
 		
 		public DamageInfo LastDamage { get; set; }
