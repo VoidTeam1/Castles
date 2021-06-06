@@ -61,7 +61,7 @@ namespace Castles
 			}
 			else
 			{
-				PlayerScoreboard.PlayerLeftSpectatorRpc( cl.Pawn );
+				PlayerScoreboard.PlayerLeftSpectatorRpc( cl );
 			}
 
 			base.ClientDisconnect( cl, reason );

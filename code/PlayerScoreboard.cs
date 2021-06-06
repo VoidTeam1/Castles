@@ -5,22 +5,34 @@ namespace Castles
 {
 	public partial class PlayerScoreboard
 	{
-		public static Action<Player, string> PlayerJoinedTeam { get; set; } = ( _, _ ) => { };
-		public static Action<Player, string> PlayerLeftTeam { get; set; } = ( _, _ ) => { };
-		public static Action<Player> PlayerJoinedSpectator { get; set; } = _ => {};
-		public static Action<Player> PlayerLeftSpectator { get; set; } = _ => {};
+		public static Action<Client, string> PlayerJoinedTeam { get; set; } = ( _, _ ) => { };
+		public static Action<Client, string> PlayerLeftTeam { get; set; } = ( _, _ ) => { };
+		public static Action<Client> PlayerJoinedSpectator { get; set; } = _ => {};
+		public static Action<Client> PlayerLeftSpectator { get; set; } = _ => {};
 
 		[ClientRpc]
-		public static void PlayerJoinedTeamRpc( Entity entity, string team ) => PlayerJoinedTeam( entity as Player, team );
+		public static void PlayerJoinedTeamRpc( Client entity, string team )
+		{
+			PlayerJoinedTeam.Invoke( entity, team );
+		}
 		
 		[ClientRpc]
-		public static void PlayerLeftTeamRpc( Entity entity, string team ) => PlayerLeftTeam( entity as Player, team );
-		
+		public static void PlayerLeftTeamRpc( Client entity, string team )
+		{
+			PlayerLeftTeam.Invoke( entity, team );
+		}
+
 		[ClientRpc]
-		public static void PlayerJoinedSpectatorRpc( Entity entity ) => PlayerJoinedSpectator( entity as Player );
-		
+		public static void PlayerJoinedSpectatorRpc( Client entity )
+		{
+			PlayerJoinedSpectator.Invoke( entity );
+		}
+
 		[ClientRpc]
-		public static void PlayerLeftSpectatorRpc( Entity entity ) => PlayerLeftSpectator( entity as Player );
+		public static void PlayerLeftSpectatorRpc( Client entity )
+		{
+			PlayerLeftSpectator.Invoke( entity );
+		}
 
 	}
 }

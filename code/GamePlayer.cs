@@ -67,6 +67,7 @@ namespace Castles
 			{
 				ActiveChild = Input.ActiveChild;
 			}
+			
 
 			// This simulates an active weapon
 			SimulateActiveChild( cl, ActiveChild );
