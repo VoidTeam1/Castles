@@ -17,9 +17,9 @@ namespace Castles.UI
 			RootPanel.AddChild<VoiceList>();
 			RootPanel.AddChild<KillFeed>();
 			RootPanel.AddChild<Scoreboard>();
-
 			RootPanel.AddChild<AmmoCounter>();
 			RootPanel.AddChild<DebugHUD>();
+			RootPanel.AddChild<TeamSelection>();
 		}
 	}
 }
