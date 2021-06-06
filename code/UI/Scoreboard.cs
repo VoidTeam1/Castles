@@ -29,7 +29,7 @@ namespace Castles.UI
 				AddPlayer( teamPanel, client.Name, teamName );
 			};
 			
-			
+
 			/* TODO: make this work
 			PlayerScoreboard.PlayerLeftTeam += ( client, teamName ) =>
 			{
