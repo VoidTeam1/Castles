@@ -7,8 +7,6 @@ namespace Castles
 
 		public override void Respawn()
 		{
-			SetModel( "models/ghost.vmdl" );
-			
 			Controller = new NoclipController();
 			Animator = new StandardPlayerAnimator();
 			Camera = new FirstPersonCamera();
