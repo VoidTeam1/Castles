@@ -46,7 +46,7 @@ namespace Castles
 			player.Respawn();
 			
 			// TODO: Proper team selection later
-			Rand.FromArray(Team.All.ToArray()).Join( client );
+			//Rand.FromArray(Team.All.ToArray()).Join( client );
 		}
 		
 		/// <summary>

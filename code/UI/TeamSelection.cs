@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
@@ -6,7 +7,7 @@ namespace Castles.UI
 {
 	public class TeamSelection : Panel
 	{
-		private List<Label> Teams;
+		private List<Label> Teams = new();
 		
 		public TeamSelection()
 		{
@@ -32,9 +33,9 @@ namespace Castles.UI
 
 		private void AddTeamPanel( string name, Label count, Panel parent )
 		{
-			var team = parent.Add.Panel( "team" );
+			var team = parent.Add.Button( "", "team", () => SelectTeam( name ));
 			var title = team.Add.Panel( "team-title" );
-			title.Add.Label( "TEAM" );
+			title.Add.Label( "TEAM " );
 			title.Add.Label( $"{name.ToUpper()}", $"team-title--{name}");
 
 			var box = team.Add.Panel( "team-box" );
@@ -42,6 +43,13 @@ namespace Castles.UI
 			box.Add.Label( $"{count.Text} / 4", "team-box-count" );
 		}
 
+		private void SelectTeam(string teamName)
+		{
+			// TODO: Add player to real team
+			Log.Info( $"SELECTED TEAM: {teamName}" );
+		}
+
+		// TODO: Update when a player joins/leaves a team
 		private void Update()
 		{
 			foreach ( var label in Teams )
