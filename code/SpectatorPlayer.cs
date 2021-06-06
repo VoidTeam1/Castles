@@ -2,7 +2,7 @@
 
 namespace Castles
 {
-	public class SpectatorPlayer : Player
+	public partial class SpectatorPlayer : Player
 	{
 
 		public override void Respawn()
@@ -18,6 +18,5 @@ namespace Castles
 
 			base.Respawn();
 		}
-		
 	}
 }

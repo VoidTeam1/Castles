@@ -39,6 +39,11 @@ namespace Castles
 
 		public void Join( Client client )
 		{
+			if ( client.Pawn is SpectatorPlayer )
+			{
+				PlayerScoreboard.PlayerLeftSpectatorRpc( client );	
+			}
+			
 			client.Pawn.Delete();
 
 			var player = new GamePlayer(this);
@@ -46,6 +51,13 @@ namespace Castles
 
 			player.Respawn();
 			player.ReceiveTeamData( Name );
+
+			PlayerScoreboard.PlayerJoinedTeamRpc(client, Name);
+		}
+
+		public void Leave( Client client )
+		{
+			PlayerScoreboard.PlayerLeftTeamRpc(client, Name);
 		}
 
 		public override string ToString() => Name;

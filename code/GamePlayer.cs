@@ -67,6 +67,7 @@ namespace Castles
 			{
 				ActiveChild = Input.ActiveChild;
 			}
+			
 
 			// This simulates an active weapon
 			SimulateActiveChild( cl, ActiveChild );
@@ -108,8 +109,9 @@ namespace Castles
 		public void ReceiveTeamData( string name )
 		{
 			Host.AssertClient();
+			
 			Team = Team.All.FirstOrDefault( x => x.Name == name );
 		}
-		
+
 	}
 }
