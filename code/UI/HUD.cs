@@ -20,7 +20,6 @@ namespace Castles.UI
 
 			RootPanel.AddChild<AmmoCounter>();
 			RootPanel.AddChild<DebugHUD>();
-			RootPanel.AddChild<TeamSelection>();
 		}
 	}
 }
