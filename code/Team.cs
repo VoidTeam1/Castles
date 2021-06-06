@@ -46,6 +46,13 @@ namespace Castles
 
 			player.Respawn();
 			player.ReceiveTeamData( Name );
+
+			PlayerScoreboard.PlayerJoinedTeamRpc(player, Name);
+		}
+
+		public void Leave( Client client )
+		{
+			PlayerScoreboard.PlayerLeftTeamRpc(client.Pawn, Name);
 		}
 
 		public override string ToString() => Name;

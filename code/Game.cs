@@ -44,11 +44,29 @@ namespace Castles
 			client.Pawn = player;
 
 			player.Respawn();
-			
+
 			// TODO: Proper team selection later
-			Rand.FromArray(Team.All.ToArray()).Join( client );
+			var team = Rand.FromArray( Team.All.ToArray() );
+			team.Join( client );
 		}
-		
+
+		/// <summary>
+		/// A client has disconnected from the server.
+		/// </summary>
+		public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+		{
+			if ( cl.Pawn is GamePlayer player )
+			{
+				player.Team.Leave( cl );
+			}
+			else
+			{
+				PlayerScoreboard.PlayerLeftSpectatorRpc( cl.Pawn );
+			}
+
+			base.ClientDisconnect( cl, reason );
+		}
+
 		/// <summary>
 		/// An entity, which is a pawn, and has a client, has been killed.
 		/// </summary>
