@@ -111,6 +111,7 @@ namespace Castles
 			Host.AssertClient();
 			
 			Team = Team.All.FirstOrDefault( x => x.Name == name );
+			Event.Run( "Castles.TeamReceived", Team );
 		}
 
 	}

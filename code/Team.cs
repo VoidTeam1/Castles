@@ -52,7 +52,7 @@ namespace Castles
 			player.Respawn();
 			player.ReceiveTeamData( Name );
 
-			PlayerScoreboard.PlayerJoinedTeamRpc(client, Name);
+			PlayerScoreboard.PlayerJoinedTeamRpc(To.Everyone, client, Name);
 		}
 
 		public void Leave( Client client )

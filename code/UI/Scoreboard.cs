@@ -8,7 +8,7 @@ namespace Castles.UI
 	public class Scoreboard : Panel
 	{
 		// TODO: Make a class ScoreboardEntry and save each entry in .. idk what 
-		private Dictionary<string, Panel> scoreboard;
+		private Dictionary<string, Panel> scoreboard = new();
 
 		public Scoreboard()
 		{
@@ -17,16 +17,17 @@ namespace Castles.UI
 			Add.Label( "CASTLES SCOREBOARD", "title" );
 
 			var teams = Add.Panel( "teams" );
-
+			
 			foreach ( var team in Team.All )
 			{
 				scoreboard[team.Name] = AddTeam( teams, team );
 			}
-
+			
 			PlayerScoreboard.PlayerJoinedTeam += ( client, teamName ) =>
 			{
-				var teamPanel = scoreboard[teamName];
-				AddPlayer( teamPanel, client.Name, teamName );
+				// TODO: Fix - teamName is an empty string???
+				// var teamPanel = scoreboard[teamName];
+				// AddPlayer( teamPanel, client.Name, teamName );
 			};
 			
 
@@ -41,7 +42,7 @@ namespace Castles.UI
 
 		private Panel AddTeam(Panel parent, Team team)
 		{
-			var teamPanel = Add.Panel("team");
+			var teamPanel = parent.Add.Panel("team");
 			teamPanel.Add.Label( $"TEAM {team.Name}", $"team-header--{team.Name}" );
 			var teamContent = teamPanel.Add.Panel( "team-content" );
 
