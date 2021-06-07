@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Castles.Entities;
 using Castles.UI;
 using Castles.Weapons;
 using Castles.Weapons.Base;
@@ -71,6 +72,17 @@ namespace Castles
 
 			// This simulates an active weapon
 			SimulateActiveChild( cl, ActiveChild );
+
+			if ( IsServer && Input.Pressed( InputButton.Attack2 ) )
+			{
+				var gold = new GoldEntity()
+				{
+					Owner = this,
+					Position = Trace.Ray( EyePos, EyePos + EyeRot.Forward * 1000 )
+						.Ignore(this)
+						.Run().EndPos + Vector3.Up * 10f
+				};
+			}
 		}
 
 		public override void TakeDamage( DamageInfo info )

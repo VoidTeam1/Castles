@@ -7,7 +7,7 @@ Layer0
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "[0.000000 0.423529 0.980392 0.000000]"
+	TextureColor "[0.854902 0.647059 0.125490 1.000000]"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -20,13 +20,13 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	g_flMetalness "0.039"
+	g_flMetalness "0.812"
 
 	//---- Normal ----
 	TextureNormal "materials/default/default_normal.tga"
 
 	//---- Roughness ----
-	TextureRoughness "[0.223529 0.211765 0.211765 0.000000]"
+	TextureRoughness "[0.121569 0.117647 0.117647 0.000000]"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
