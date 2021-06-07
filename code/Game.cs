@@ -36,13 +36,16 @@ namespace Castles
 		/// <summary>
 		/// A client has joined the server. Make them a pawn to play with
 		/// </summary>
-		public override void ClientJoined( Client client )
+		public override async void ClientJoined( Client client )
 		{
 			base.ClientJoined( client );
 
 			var player = new SpectatorPlayer();
 			client.Pawn = player;
 			player.Respawn();
+
+			// TODO: Remove later, this is a workaround - https://github.com/Facepunch/sbox-issues/issues/310
+			await Task.DelayRealtime( 100 );
 
 			foreach ( var playerEnt in All )
 			{

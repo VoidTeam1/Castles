@@ -16,7 +16,6 @@ namespace Castles
 		};
 		
 		public string Name { get; set; }
-		
 		public Color Color { get; set; }
 		
 
@@ -46,7 +45,8 @@ namespace Castles
 			
 			client.Pawn.Delete();
 
-			var player = new GamePlayer(this);
+			var player = new GamePlayer();
+			player.Team = this;
 			client.Pawn = player;
 
 			player.Respawn();
