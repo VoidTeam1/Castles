@@ -4,7 +4,7 @@ namespace Castles
 {
 	public partial class GamePlayer
 	{
-		[Net]
+		[Net, Local]
 		public int Gold { get; set; }
 
 		public bool CanAfford( int gold ) => Gold >= gold;
@@ -12,6 +12,11 @@ namespace Castles
 		public void AddGold( int gold )
 		{
 			Gold += gold;
+		}
+
+		public void SetGold( int gold )
+		{
+			Gold = gold;
 		}
 
 		public bool TakeGold( int gold )

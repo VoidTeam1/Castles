@@ -10,6 +10,7 @@ namespace Castles.Entities
 	{
 		public static SoundEvent PickupSound = new ( "sounds/studs/blue_pickup.vsnd" );
 		public float RotationSpeed { get; set; } = 8f;
+		public int GoldAmount { get; set; } = 1;
 
 		public GoldEntity()
 		{
@@ -37,10 +38,11 @@ namespace Castles.Entities
 		{
 			base.StartTouch( entity );
 			
-			if ( entity is not GamePlayer ) return;
+			if ( entity is not GamePlayer gamePlayer ) return;
 			if ( IsServer )
 			{
 				Delete();
+				gamePlayer.AddGold( GoldAmount );
 			}
 			
 			PlaySound( PickupSound.Name );
