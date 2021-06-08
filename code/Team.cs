@@ -40,7 +40,7 @@ namespace Castles
 		{
 			if ( client.Pawn is SpectatorPlayer )
 			{
-				PlayerScoreboard.PlayerLeftSpectatorRpc( client );	
+				PlayerScoreboard.PlayerLeftSpectatorRpc( client.SteamId );	
 			}
 			
 			client.Pawn.Delete();
@@ -52,12 +52,12 @@ namespace Castles
 			player.Respawn();
 			player.ReceiveTeamData( Name );
 
-			PlayerScoreboard.PlayerJoinedTeamRpc(To.Everyone, client, Name);
+			PlayerScoreboard.PlayerJoinedTeamRpc(To.Everyone, client.SteamId, Name);
 		}
 
 		public void Leave( Client client )
 		{
-			PlayerScoreboard.PlayerLeftTeamRpc(client, Name);
+			PlayerScoreboard.PlayerLeftTeamRpc(client.SteamId, Name);
 		}
 
 		[ServerCmd("join_team")]

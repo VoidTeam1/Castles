@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Sandbox;
 
 namespace Castles
@@ -11,27 +12,40 @@ namespace Castles
 		public static Action<Client> PlayerLeftSpectator { get; set; } = _ => {};
 
 		[ClientRpc]
-		public static void PlayerJoinedTeamRpc( Client entity, string team )
+		public static void PlayerJoinedTeamRpc( ulong steamId, string team )
 		{
-			PlayerJoinedTeam.Invoke( entity, team );
+			var client = Client.All.FirstOrDefault( x => x.SteamId == steamId );
+			if ( client == null ) return;
+			
+			PlayerJoinedTeam.Invoke( client, team );
+			Log.Info( client.Name );
 		}
 		
 		[ClientRpc]
-		public static void PlayerLeftTeamRpc( Client entity, string team )
+		public static void PlayerLeftTeamRpc( ulong steamId, string team )
 		{
-			PlayerLeftTeam.Invoke( entity, team );
+			var client = Client.All.FirstOrDefault( x => x.SteamId == steamId );
+			if ( client == null ) return;
+			
+			PlayerLeftTeam.Invoke( client, team );
 		}
 
 		[ClientRpc]
-		public static void PlayerJoinedSpectatorRpc( Client entity )
+		public static void PlayerJoinedSpectatorRpc( ulong steamId )
 		{
-			PlayerJoinedSpectator.Invoke( entity );
+			var client = Client.All.FirstOrDefault( x => x.SteamId == steamId );
+			if ( client == null ) return;
+			
+			PlayerJoinedSpectator.Invoke( client );
 		}
 
 		[ClientRpc]
-		public static void PlayerLeftSpectatorRpc( Client entity )
+		public static void PlayerLeftSpectatorRpc( ulong steamId )
 		{
-			PlayerLeftSpectator.Invoke( entity );
+			var client = Client.All.FirstOrDefault( x => x.SteamId == steamId );
+			if ( client == null ) return;
+			
+			PlayerLeftSpectator.Invoke( client );
 		}
 
 	}

@@ -68,7 +68,7 @@ namespace Castles
 			}
 			else
 			{
-				PlayerScoreboard.PlayerLeftSpectatorRpc( cl );
+				PlayerScoreboard.PlayerLeftSpectatorRpc( cl.SteamId );
 			}
 
 			base.ClientDisconnect( cl, reason );
