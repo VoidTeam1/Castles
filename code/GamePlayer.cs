@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Castles.Entities;
+using Castles.MapEntities;
 using Castles.UI;
 using Castles.Weapons;
 using Castles.Weapons.Base;
@@ -82,6 +83,17 @@ namespace Castles
 						.Ignore(this)
 						.Run().EndPos + Vector3.Up * 10f
 				};
+			}
+
+			if ( IsServer && Input.Pressed( InputButton.Drop ) )
+			{
+				foreach ( var ent in All )
+				{
+					if ( ent is JumpPlatform platform )
+					{
+						platform.Activate();
+					}
+				}
 			}
 		}
 

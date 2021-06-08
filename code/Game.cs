@@ -1,4 +1,6 @@
 
+using System.Linq;
+using Castles.MapEntities;
 using Castles.UI;
 using Castles.Weapons.Base;
 using Sandbox;
@@ -54,6 +56,7 @@ namespace Castles
 					gamePlayer.ReceiveTeamData( To.Single( client ), gamePlayer.Team.Name );
 				}
 			}
+
 		}
 		
 
