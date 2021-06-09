@@ -41,7 +41,7 @@
 // 
 // Castles.MapEntities.JumpPlatform : Sandbox.FuncBrush 
 // 
-@SolidClass = jump_platform : "A jump platform that gets extends itself vertically."
+@SolidClass = jump_platform : "A jump platform that extends itself vertically."
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	start_height(integer) : "start_height" :  : ""

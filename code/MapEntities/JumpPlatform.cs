@@ -1,10 +1,9 @@
 ﻿using Sandbox;
-using Sandbox.Hammer;
 
 namespace Castles.MapEntities
 {
-	[Library("jump_platform", Description = "A jump platform that gets extends itself vertically.")]
-	public class JumpPlatform : FuncBrush
+	[Library("jump_platform", Description = "A jump platform that extends itself vertically.")]
+	public class JumpPlatform : FuncBrush, IUpgradeable
 	{
 		[Property("start_height")]
 		public int StartHeight { get; set; } 
@@ -20,7 +19,7 @@ namespace Castles.MapEntities
 		
 		public bool Activated { get; set; }
 
-		public void Activate()
+		public void Upgrade(int upgradeLevel)
 		{
 			Activated = true;
 		}

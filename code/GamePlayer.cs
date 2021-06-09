@@ -57,7 +57,7 @@ namespace Castles
 			GiveAmmo( AmmoType.Buckshot, 120 );
 
 		}
-		
+
 		/// <summary>
 		/// Called every tick, clientside and serverside.
 		/// </summary>
@@ -85,14 +85,11 @@ namespace Castles
 				};
 			}
 
-			if ( IsServer && Input.Pressed( InputButton.Drop ) )
+			foreach ( var ent in All )
 			{
-				foreach ( var ent in All )
+				if ( ent is PaymentEntity paymentEntity )
 				{
-					if ( ent is JumpPlatform platform )
-					{
-						platform.Activate();
-					}
+					paymentEntity.Simulate( cl );
 				}
 			}
 		}
