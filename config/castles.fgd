@@ -41,7 +41,7 @@
 // 
 // Castles.MapEntities.JumpPlatform : Sandbox.FuncBrush 
 // 
-@SolidClass = jump_platform : "A jump platform that gets extends itself vertically."
+@SolidClass = jump_platform : "A jump platform that extends itself vertically."
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	start_height(integer) : "start_height" :  : ""
@@ -57,6 +57,17 @@
 	input Enable(void) : ""
 	input Disable(void) : ""
 	input Toggle(void) : ""
+]
+
+// 
+// Castles.MapEntities.PaymentEntity : Sandbox.ModelEntity 
+// 
+@SolidClass = castles_payment : "Payment for castles upgrades."
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	payment_type(string) : "Payment Type" :  : ""
+	max_level(integer) : "Max Level" :  : ""
+
 ]
 
 // 
