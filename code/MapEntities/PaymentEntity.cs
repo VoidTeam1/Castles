@@ -95,7 +95,7 @@ namespace Castles.MapEntities
 		public int GetUpgradePrice()
 		{
 			// TODO: Different price calculations
-			return CurrentLevel * 10;
+			return (CurrentLevel + 1) * 10;
 		}
 	}
 }
