@@ -1,0 +1,80 @@
+// 
+// Castles.Game : Sandbox.Game 
+// 
+@PointClass = castles : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+]
+
+// 
+// Castles.Weapons.Pistol : Castles.Weapons.Base.ProjectileWeapon 
+// 
+@SolidClass = castles_pistol : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+]
+
+// 
+// Castles.Weapons.Shotgun : Castles.Weapons.Base.ProjectileWeapon 
+// 
+@SolidClass = castles_shotgun : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+]
+
+// 
+// Castles.Weapons.SMG : Castles.Weapons.Base.ProjectileWeapon 
+// 
+@SolidClass = castles_smg : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+]
+
+// 
+// Castles.Weapons.Base.Projectile : Sandbox.ModelEntity 
+// 
+@SolidClass = projectile : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+]
+
+// 
+// Castles.MapEntities.JumpPlatform : Sandbox.FuncBrush 
+// 
+@SolidClass = jump_platform : "A jump platform that gets extends itself vertically."
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	start_height(integer) : "start_height" :  : ""
+	activated_height(integer) : "activated_height" :  : ""
+	activated_by(string) : "activated_by" :  : ""
+	activate_speed(float) : "activate_speed" :  : ""
+	enabled(boolean) : "Enabled" :  : ""
+	solid(boolean) : "Solid" :  : ""
+
+	input DisableSolid(void) : ""
+	input EnableSolid(void) : ""
+	input ToggleSolid(void) : ""
+	input Enable(void) : ""
+	input Disable(void) : ""
+	input Toggle(void) : ""
+]
+
+// 
+// Castles.MapEntities.PaymentEntity : Sandbox.ModelEntity 
+// 
+@SolidClass = castles_payment : "Payment for castles upgrades."
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	payment_type(string) : "Payment Type" :  : ""
+	max_level(integer) : "Max Level" :  : ""
+
+]
+
+// 
+// Castles.Entities.GoldEntity : Sandbox.ModelEntity 
+// 
+@SolidClass = gold : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+]
+
