@@ -15,7 +15,7 @@ namespace Castles
 			ent.MoveType = MoveType.Physics;
 			ent.UsePhysicsCollision = true;
 			ent.SetInteractsAs( CollisionLayer.Debris );
-			ent.SetInteractsWith( CollisionLayer.WORLD_GEOMETRY );
+			ent.SetInteractsWith( CollisionLayer.WORLD_GEOMETRY | CollisionLayer.Water );
 			ent.SetInteractsExclude( CollisionLayer.Player | CollisionLayer.Debris );
 
 			ent.SetModel( GetModelName() );
