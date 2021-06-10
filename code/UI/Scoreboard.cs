@@ -43,7 +43,8 @@ namespace Castles.UI
 		private Panel AddTeam(Panel parent, Team team)
 		{
 			var teamPanel = parent.Add.Panel("team");
-			teamPanel.Add.Label( $"TEAM {team.Name}", $"team-header--{team.Name}" );
+			var header = teamPanel.Add.Label( $"TEAM {team.Name.ToUpper()}", $"team-header--{team.Name}" );
+			header.AddClass( "team-header" );
 			var teamContent = teamPanel.Add.Panel( "team-content" );
 
 			foreach ( var player in team.Members )
@@ -56,7 +57,8 @@ namespace Castles.UI
 
 		private void AddPlayer(Panel parent, string playerName, string teamName)
 		{
-			parent.Add.Label(playerName, $"team-entry--{teamName}" );
+			var entry = parent.Add.Label(playerName, $"team-entry--{teamName}" );
+			entry.AddClass( "team-entry" );
 		}
 
 		public override void Tick()
