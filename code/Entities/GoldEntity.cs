@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Castles.Extensions;
 using Sandbox;
-using Sandbox.Hammer;
 
 namespace Castles.Entities
 {

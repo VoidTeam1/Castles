@@ -23,7 +23,6 @@ namespace Castles.UI
 			
 			RootPanel.AddChild<Scoreboard>();
 			RootPanel.AddChild<TeamSelection>();
-			
 		}
 	}
 }

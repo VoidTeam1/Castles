@@ -9,7 +9,7 @@
 // 
 // Castles.Weapons.Pistol : Castles.Weapons.Base.ProjectileWeapon 
 // 
-@SolidClass = castles_pistol : ""
+@PointClass = castles_pistol : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 ]
@@ -17,7 +17,7 @@
 // 
 // Castles.Weapons.Shotgun : Castles.Weapons.Base.ProjectileWeapon 
 // 
-@SolidClass = castles_shotgun : ""
+@PointClass = castles_shotgun : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 ]
@@ -25,7 +25,7 @@
 // 
 // Castles.Weapons.SMG : Castles.Weapons.Base.ProjectileWeapon 
 // 
-@SolidClass = castles_smg : ""
+@PointClass = castles_smg : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 ]
@@ -33,7 +33,7 @@
 // 
 // Castles.Weapons.Base.Projectile : Sandbox.ModelEntity 
 // 
-@SolidClass = projectile : ""
+@PointClass = projectile : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 ]
@@ -48,21 +48,21 @@
 	activated_height(integer) : "activated_height" :  : ""
 	activated_by(string) : "activated_by" :  : ""
 	activate_speed(float) : "activate_speed" :  : ""
-	enabled(boolean) : "Enabled" :  : ""
-	solid(boolean) : "Solid" :  : ""
+	enabled(boolean) : "Enabled" :  : "Whether this func_brush is visible/active at all"
+	solid(boolean) : "Solid" :  : "Whether this func_brush has collisions"
 
-	input DisableSolid(void) : ""
-	input EnableSolid(void) : ""
-	input ToggleSolid(void) : ""
-	input Enable(void) : ""
-	input Disable(void) : ""
-	input Toggle(void) : ""
+	input DisableSolid(void) : "Make this func_brush non solid"
+	input EnableSolid(void) : "Make this func_brush solid"
+	input ToggleSolid(void) : "Toggle solidity of this func_brush"
+	input Enable(void) : "Enable this func_brush, making it visible"
+	input Disable(void) : "Disable this func_brush, making it invisible and non solid"
+	input Toggle(void) : "Toggle this func_brush"
 ]
 
 // 
 // Castles.MapEntities.PaymentEntity : Sandbox.ModelEntity 
 // 
-@SolidClass = castles_payment : "Payment for castles upgrades."
+@PointClass = castles_payment : "Payment for castles upgrades."
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	payment_type(string) : "Payment Type" :  : ""
@@ -73,7 +73,7 @@
 // 
 // Castles.Entities.GoldEntity : Sandbox.ModelEntity 
 // 
-@SolidClass = gold : ""
+@PointClass = gold : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 ]
